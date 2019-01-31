@@ -1,0 +1,22 @@
+<launch>
+  <!--
+    Orient the remote horizontally such that the "A" key is on the left, "1" and "2" keys are on the right.
+    Push the rear "B" key to activate cmd_vel publishing.
+    Use rocker keys to control the direction and velocity.
+   -->
+  <!--  smooths inputs from cmd_vel_mux/input/teleop_raw to cmd_vel_mux/input/teleop -->
+  <include file="$(find turtlebot_teleop)/launch/includes/velocity_smoother.launch.xml"/>
+
+  <node pkg="turtlebot_teleop" type="turtlebot_teleop_joy" name="turtlebot_teleop_joystick">
+    <param name="scale_angular" value="1.2"/>
+    <param name="scale_linear" value="0.5"/>
+    <param name="axis_deadman" value="1.0"/>
+    <param name="axis_linear" value="0"/>
+    <param name="axis_angular" value="1"/>
+    <remap from="turtlebot_teleop_joystick/cmd_vel" to="teleop_velocity_smoother/raw_cmd_vel"/>
+    <!--remap from="/xwiimote_node/joy" to="/joy"/-->
+  </node>
+
+  <!-- node pkg="joy" type="joy_node" name="joystick"/-->
+
+</launch>
