@@ -8,7 +8,8 @@
   <arg name="depth_registration"              default="false"/>
   <arg     if="$(arg depth_registration)" name="depth" value="depth_registered" />
   <arg unless="$(arg depth_registration)" name="depth" value="depth" /> 
-  <!-- NOTE: depth arg is not used below, so it is not clear what the previous three lines accomplish. -->
+  <!-- NOTE: depth arg is not used below, so it is not clear what the previous three lines accomplish. 
+       The previous 3 lines are identical to lines from 3dsensor.launch, where this file may be included.  Rather than duplicating those lines, it seems like it would be better to just pass the "depth" argument down from 3dsensor.launch, however this would require modifying 3dsensor.launch. -->
 
   <!-- Processing Modules -->                                    
   <arg name="rgb_processing"                  default="true"/>                                      
@@ -28,8 +29,50 @@
     <arg name="camera"                          value="$(arg camera)"/>                             
     <arg name="camera_type"                     value="D435" />                                     
     <arg name="publish_tf"                      value="$(arg publish_tf)"/>                         
-    <arg name="num_worker_threads"              value="$(arg num_worker_threads)" />                
--->                                                                                       
+    <arg name="num_worker_threads"              value="$(arg num_worker_threads)" /> 
+
+-->   
+
+<!-- Begin Camera device specific arguments copied from rs_rgbd.launch, modified -->
+
+  <arg name="serial_no"           default=""/>rs
+  <arg name="json_file_path"      default=""/>
+
+  <arg name="fisheye_width"       default="640"/>
+  <arg name="fisheye_height"      default="480"/>
+  <arg name="enable_fisheye"      default="false"/>
+
+  <arg name="depth_width"         default="848"/>
+  <arg name="depth_height"        default="480"/>
+  <arg name="enable_depth"        default="true"/>
+
+  <arg name="infra1_width"        default="848"/>
+  <arg name="infra1_height"       default="480"/>
+  <arg name="enable_infra1"       default="true"/>
+
+  <arg name="infra2_width"        default="848"/>
+  <arg name="infra2_height"       default="480"/>
+  <arg name="enable_infra2"       default="true"/>
+
+  <arg name="color_width"         default="848"/>
+  <arg name="color_height"        default="480"/>
+  <arg name="enable_color"        default="true"/>
+
+  <arg name="fisheye_fps"         default="30"/>
+  <arg name="depth_fps"           default="30"/>
+  <arg name="infra1_fps"          default="30"/>
+  <arg name="infra2_fps"          default="30"/>
+  <arg name="color_fps"           default="30"/>
+  <arg name="gyro_fps"            default="400"/>
+  <arg name="accel_fps"           default="250"/>
+  <arg name="enable_imu"          default="false"/>
+
+  <arg name="enable_pointcloud"   default="false"/>
+  <arg name="enable_sync"         default="true"/>
+  <arg name="align_depth"         default="true"/>
+  <arg name="filters"             default="temporal,spatial,pointcloud"/>
+
+<!-- End Camera device specific arguments copied from rs_rgbd.launch -->                                                                                   
 
    <!-- NOTE: depth arg is not referenced here and therefore is not passed down -->
 
